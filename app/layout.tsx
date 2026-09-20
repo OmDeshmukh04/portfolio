@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Om Deshmukh — Quantitative Developer",
-  description: "Software engineer building quantitative finance and trading systems through C++, algorithms, and market microstructure research.",
+  title: "Om Deshmukh — Software Engineer & Quant Developer in Progress",
+  description: "Om Deshmukh's portfolio: systems projects, competitive programming, education, trekking photography, and a path toward quantitative development.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/favicon-trident.svg",
+    shortcut: "/favicon-trident.svg",
   },
 };
 
