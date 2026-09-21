@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PageHeading } from "@/components/page-heading";
+import { MonteCarloDemo } from "@/components/monte-carlo-demo";
+
+export const metadata: Metadata = { title: "Monte Carlo Lab | Om Deshmukh" };
+export default function MonteCarlo() {
+  return <main className="page"><Link className="back-link" href="/projects">← All projects</Link><PageHeading eyebrow="Probability · Simulation · Browser experiment" title="Monte Carlo Risk Simulation Lab"><p>Change volatility or the time horizon to see how uncertainty spreads through a simple price model. Each sample starts at 100; the charts and risk statistics update from the same simulated paths.</p></PageHeading><MonteCarloDemo /><section className="section" style={{marginTop:32}}><h2>The model</h2><p>The demo uses geometric Brownian motion with normally distributed shocks. The exponential update keeps prices positive, while a fixed random seed makes each parameter setting reproducible.</p><div className="formula">S(t + Δt) = S(t) · exp[(μ − σ²/2)Δt + σ√Δt · Z]<br />Z ~ N(0, 1)</div><div className="columns"><div><h3>Reading the tail</h3><p className="muted">Value at Risk is the empirical 95th percentile of losses. Expected Shortfall averages the worst 5%, so it also reflects the severity of losses beyond that threshold.</p></div><div><h3>What this leaves out</h3><p className="muted">Constant drift and volatility are simplifying assumptions. This model does not include jumps, changing volatility, transaction costs, or actual market calibration.</p></div></div></section><section className="section"><h2>Where I’m taking it</h2><p>The browser experiment runs in TypeScript. My Python/NumPy research workflow is in progress, with convergence checks, stress scenarios, and comparisons across seeds next on the list. Generating stochastic order flow for the matching engine is a separate planned experiment.</p></section></main>;
+}

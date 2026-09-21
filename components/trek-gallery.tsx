@@ -1,0 +1,16 @@
+"use client";
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+
+const captions = ["Clouds, green ridges, and flowers along the trail.","A few perspectives from above the Sahyadris.","Monsoon skies over a winding mountain path.","The shape of the hills from above.","Blue skies and layers of green.","Looking back over the ridgelines.","A mountain day, collected in frames.","A flower-lined trail disappearing into the mist.","Another look at one of my favourite trail views.","Clouds rolling across the valley.","A wide-open view after the climb.","A quiet stop beside the water.","Stone steps worn by many journeys.","A fort gateway and a saffron flag.","Old stone, open skies.","Wildflowers with a valley beyond.","The camera comes along for the climb.","Monsoon cloud pouring over the ridgeline.","The summit, once the cloud finally opened."];
+export function TrekGallery() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [index, setIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  useEffect(() => { const reduced = matchMedia("(prefers-reduced-motion: reduce)"); setPlaying(!reduced.matches); const update = () => setPlaying(!reduced.matches); reduced.addEventListener("change",update); return () => reduced.removeEventListener("change",update); },[]);
+  useEffect(() => { if (!api) return; const update = () => setIndex(api.selectedScrollSnap()); api.on("select",update); return () => { api.off("select",update); }; },[api]);
+  useEffect(() => { if (!api || !playing) return; const timer = window.setInterval(()=>{if (!document.hidden) api.scrollNext();},5500); return ()=>clearInterval(timer); },[api,playing]);
+  function move(direction: number) { setPlaying(false); direction > 0 ? api?.scrollNext() : api?.scrollPrev(); }
+  return <div className="trek-carousel"><Carousel opts={{loop:true}} setApi={setApi} aria-label="Om’s trekking photographs" onFocusCapture={()=>setPlaying(false)}><CarouselContent>{captions.map((caption,i)=><CarouselItem key={i} aria-label={`${i+1} of ${captions.length}`}><figure><div className="trek-frame"><img src={`/photos/trek-${String(i+1).padStart(2,"0")}.webp`} alt={caption} loading={i===0?"eager":"lazy"} /></div><figcaption>{caption}</figcaption></figure></CarouselItem>)}</CarouselContent></Carousel><div className="carousel-controls"><span aria-live={playing?"off":"polite"}>{String(index+1).padStart(2,"0")} / {captions.length} · Photographs by me</span><div><button onClick={()=>move(-1)} aria-label="Previous photograph"><ArrowLeft /> Previous</button><button onClick={()=>setPlaying(!playing)} aria-label={playing?"Pause slideshow":"Play slideshow"}>{playing?<Pause />:<Play />}{playing?"Pause":"Play"}</button><button onClick={()=>move(1)} aria-label="Next photograph">Next <ArrowRight /></button></div></div><div className="trail-thumbs" aria-label="Choose a photograph">{captions.map((caption,i)=><button key={i} aria-label={`Show photograph ${i+1}`} aria-pressed={index===i} onClick={()=>{setPlaying(false);api?.scrollTo(i);}}><img src={`/photos/thumbs/trek-${String(i+1).padStart(2,"0")}.webp`} alt="" width="62" height="62" loading="lazy" /></button>)}</div></div>;
+}

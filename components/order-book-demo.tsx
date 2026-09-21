@@ -48,10 +48,11 @@ export function OrderBookDemo({ compact = false }: { compact?: boolean }) {
   const spread = bestAsk !== undefined && bestBid !== undefined ? bestAsk - bestBid : undefined;
 
   function submit(nextSide = side, nextPrice = Number(price), nextQuantity = Number(quantity)) {
-    if (!Number.isFinite(nextPrice) || !Number.isFinite(nextQuantity) || nextPrice <= 0 || nextQuantity <= 0) {
-      setMessage("Enter a positive price and quantity.");
+    if (!Number.isFinite(nextPrice) || !Number.isSafeInteger(nextQuantity) || nextPrice <= 0 || nextPrice > 100000000 || nextQuantity <= 0 || nextQuantity > 1000000000 || Math.abs(nextPrice * 100 - Math.round(nextPrice * 100)) > 1e-6) {
+      setMessage("Use a positive price with at most two decimals and a whole-number quantity (maximum 1 billion).");
       return;
     }
+    nextPrice = Math.round(nextPrice * 100) / 100;
 
     const working = orders.map((order) => ({ ...order }));
     const generatedTrades: Trade[] = [];
@@ -70,7 +71,7 @@ export function OrderBookDemo({ compact = false }: { compact?: boolean }) {
       const fill = Math.min(remaining, resting.quantity);
       resting.quantity -= fill;
       remaining -= fill;
-      generatedTrades.push({ id: Date.now() + generatedTrades.length, price: resting.price, quantity: fill, aggressor: nextSide });
+      generatedTrades.push({ id: sequence * 100000 + generatedTrades.length, price: resting.price, quantity: fill, aggressor: nextSide });
     }
 
     const matchedIds = new Map(candidates.map((order) => [order.id, order]));
@@ -78,7 +79,7 @@ export function OrderBookDemo({ compact = false }: { compact?: boolean }) {
       .map((order) => matchedIds.get(order.id) ?? order)
       .filter((order) => order.quantity > 0);
 
-    if (remaining > 0) nextOrders.push({ id: Date.now(), side: nextSide, price: nextPrice, quantity: remaining, sequence });
+    if (remaining > 0) nextOrders.push({ id: sequence, side: nextSide, price: nextPrice, quantity: remaining, sequence });
 
     setOrders(nextOrders);
     setSequence((value) => value + 1);
@@ -98,6 +99,9 @@ export function OrderBookDemo({ compact = false }: { compact?: boolean }) {
     setOrders(seedOrders);
     setTrades([]);
     setSequence(7);
+    setSide("buy");
+    setPrice("101.04");
+    setQuantity("100");
     setMessage("Book reset to the deterministic seed state.");
   }
 
@@ -146,7 +150,7 @@ export function OrderBookDemo({ compact = false }: { compact?: boolean }) {
           )) : <p className="empty-tape">Cross the spread or run a simulated event to create a trade.</p>}
         </div>}
       </div>
-      <p className="demo-caption">Interactive TypeScript model for explanation. The research implementation and benchmarks remain in the C++ engine.</p>
+      <p className="demo-caption">Educational TypeScript model · price-time priority · prices in 0.01 ticks. The C++ baseline is available below; latency benchmarks are planned.</p>
     </div>
   );
 }
