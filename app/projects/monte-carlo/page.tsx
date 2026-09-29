@@ -2,8 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeading } from "@/components/page-heading";
 import { MonteCarloDemo } from "@/components/monte-carlo-demo";
+import { ProjectCaseStudy } from "@/components/project-case-study";
+import { runSimulation } from "@/lib/monte-carlo";
 
 export const metadata: Metadata = { title: "Monte Carlo Lab | Om Deshmukh" };
 export default function MonteCarlo() {
-  return <main className="page"><Link className="back-link" href="/projects">← All projects</Link><PageHeading eyebrow="Probability · Simulation · Browser experiment" title="Monte Carlo Risk Simulation Lab"><p>Change volatility or the time horizon to see how uncertainty spreads through a simple price model. Each sample starts at 100; the charts and risk statistics update from the same simulated paths.</p></PageHeading><MonteCarloDemo /><section className="section" style={{marginTop:32}}><h2>The model</h2><p>The demo uses geometric Brownian motion with normally distributed shocks. The exponential update keeps prices positive, while a fixed random seed makes each parameter setting reproducible.</p><div className="formula">S(t + Δt) = S(t) · exp[(μ − σ²/2)Δt + σ√Δt · Z]<br />Z ~ N(0, 1)</div><div className="columns"><div><h3>Reading the tail</h3><p className="muted">Value at Risk is the empirical 95th percentile of losses. Expected Shortfall averages the worst 5%, so it also reflects the severity of losses beyond that threshold.</p></div><div><h3>What this leaves out</h3><p className="muted">Constant drift and volatility are simplifying assumptions. This model does not include jumps, changing volatility, transaction costs, or actual market calibration.</p></div></div></section><section className="section"><h2>Where I’m taking it</h2><p>The browser experiment runs in TypeScript. My Python/NumPy research workflow is in progress, with convergence checks, stress scenarios, and comparisons across seeds next on the list. Generating stochastic order flow for the matching engine is a separate planned experiment.</p></section></main>;
+  const reference = runSimulation(25, 252, 19);
+  return <main className="page">
+    <Link className="back-link" href="/projects">All projects</Link>
+    <PageHeading eyebrow="Probability · Simulation · Browser experiment" title="Monte Carlo Risk Simulation Lab"><p>I built this to make probability less abstract. Change the volatility or time horizon, then look at how the price paths spread out and what happens to the worst outcomes.</p></PageHeading>
+    <MonteCarloDemo />
+    <ProjectCaseStudy status="Interactive demo available"
+      problem={<p>An average outcome tells only part of the story. I wanted a way to look at a whole distribution and compare a loss threshold with the severity of the losses beyond it.</p>}
+      approach={<><p>A seeded TypeScript simulation generates 2,000 geometric Brownian motion paths, each with 64 time steps. The chart shows 24 of those paths; the histogram and risk statistics use all 2,000 terminal values.</p><div className="formula">S(t + Δt) = S(t) · exp[(μ − σ²/2)Δt + σ√Δt · Z]<br />Z ~ N(0, 1)</div><p>95% Value at Risk is an empirical loss percentile. Expected Shortfall averages the worst 5% of losses. Reusing a seed makes an experiment repeatable.</p></>}
+      result={<><p className="case-result-line">A reproducible reference run</p><p>Starting value 100, 25% annual volatility, 5% annual drift, a 252-calendar-day horizon, and seed 19.</p><dl className="reference-results"><div><dt>Mean terminal value</dt><dd>{reference.mean.toFixed(2)}</dd></div><div><dt>95% VaR · loss</dt><dd>{reference.var95.toFixed(2)}</dd></div><div><dt>95% ES · loss</dt><dd>{reference.es95.toFixed(2)}</dd></div></dl><p className="source">Same-seed repeatability and histogram totals are checked. These are synthetic model outputs, not observed market results.</p></>}
+      next={<p>Convergence checks, comparisons across seeds, and a Python/NumPy workflow are next. The current model assumes constant drift and volatility; it does not include jumps, transaction costs, or market calibration. Stochastic order flow for the matching engine is a separate planned experiment.</p>}
+    />
+  </main>;
 }
