@@ -1,3 +1,6 @@
+// Allow time for the three upstream Codeforces requests and rate-limit pauses.
+export const maxDuration = 60;
+
 const CODEFORCES_HANDLE = "Om_Deshmukh_";
 const LEETCODE_HANDLE = "ExpertD19";
 

@@ -4,7 +4,7 @@ A personal portfolio covering software engineering, quantitative development pro
 
 ## Run locally
 
-Requires Node.js 22.13 or newer and npm.
+Requires Node.js 24.x and npm.
 
 ```sh
 git clone https://github.com/OmDeshmukh04/portfolio.git
@@ -29,6 +29,23 @@ npm start
 ```
 
 The coding-statistics API needs a server or Worker runtime; this project is not a static GitHub Pages export.
+
+## Deploy on Vercel
+
+Import `OmDeshmukh04/portfolio` and select the `main` branch with the repository root as the Root Directory. The tracked `vercel.json` selects Next.js, installs with `npm ci`, runs `npm run build:vercel`, and uses `.next` as the build output. Node.js is pinned to 24.x in `package.json`.
+
+The default `npm run build` command is for the existing Cloudflare/Sites build and must not be used as the Vercel build command. The Vercel configuration overrides it automatically.
+
+To check the Vercel build locally:
+
+```sh
+npm run build:vercel
+npm run start:vercel -- --port 5175
+```
+
+For a custom domain, set `NEXT_PUBLIC_SITE_URL` to its full HTTPS URL in Vercel. Otherwise, metadata uses Vercel's production domain automatically.
+
+If the deployment log names a different GitHub repository, connect this repository under Vercel's project Git settings or synchronize the intended fork before redeploying. Redeploy the latest commit so it includes `vercel.json`.
 
 ## Features
 

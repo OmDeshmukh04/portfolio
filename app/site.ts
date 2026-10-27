@@ -1,5 +1,8 @@
-// Absolute URLs for share cards and the sitemap; a custom domain may override the live Sites URL.
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://om-deshmukh-quant.amit-kadam417387.chatgpt.site";
+// Prefer the custom domain, then Vercel's production domain, then the Sites URL.
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://om-deshmukh-quant.amit-kadam417387.chatgpt.site");
 
 export const routes = [
   { path: "/", priority: 1 },
