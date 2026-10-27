@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { ProjectVisual } from "@/components/project-visual";
+import { WebsiteWorkSection } from "@/components/website-work";
 
 export default function Home() {
   return <main className="home-page">
@@ -28,6 +29,7 @@ export default function Home() {
       </div>
       <p className="home-lab-note">Also on my desk: <Link href="/projects/systems-lab">notes on Linux, memory, and parallel computing.</Link></p>
     </section>
+    <WebsiteWorkSection compact />
     <section className="home-personal" aria-labelledby="home-personal-title">
       <div className="home-personal-photo"><div className="section-heading"><h2 id="home-personal-title">A little beyond the code</h2></div><HeroSlideshow /></div>
       <nav className="home-index" aria-label="More about Om">
