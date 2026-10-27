@@ -35,15 +35,15 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: "/favicon-trident.svg",
-    shortcut: "/favicon-trident.svg",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body><a className="skip-link" href="#content">Skip to content</a><SiteHeader /><div id="content">{children}</div><SiteFooter /></body>
+      <body className="portfolio-layout"><a className="skip-link" href="#content">Skip to content</a><SiteHeader /><div id="content">{children}</div><SiteFooter /></body>
     </html>
   );
 }

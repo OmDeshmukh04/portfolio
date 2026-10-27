@@ -1,5 +1,44 @@
-export function ProjectVisual({ kind }: { kind: "book" | "paths" | "systems" }) {
-  if (kind === "book") return <svg viewBox="0 0 240 150" role="img" aria-label="Illustration of bid and ask depth"><text x="8" y="17" className="chart-label">BID / ASK DEPTH</text><line x1="120" y1="35" x2="120" y2="138" stroke="#c9d2c6" />{[68,90,107,61,88].map((v,i)=><g key={i}><rect x={115-v} y={38+i*20} width={v} height="12" rx="1" fill="#719674" /><rect x="125" y={38+i*20} width={[79,53,102,86,58][i]} height="12" rx="1" fill="#bc8773" /></g>)}</svg>;
-  if (kind === "paths") return <svg viewBox="0 0 240 150" role="img" aria-label="Illustrative stochastic price paths"><text x="8" y="17" className="chart-label">MONTE CARLO / SAMPLE PATHS</text><path d="M8 127H230M8 35V127" fill="none" stroke="#c9d2c6" />{["M8 90L30 85L50 91L75 60L95 72L120 64L144 70L164 41L188 49L208 37L232 28","M8 90L30 95L50 80L75 93L95 85L120 105L144 98L164 102L188 92L208 98L232 103","M8 90L30 78L50 86L75 83L95 64L120 77L144 58L164 72L188 65L208 73L232 61","M8 90L30 100L50 98L75 109L95 95L120 111L144 109L164 121L188 110L208 117L232 113"].map((d,i)=><path key={d} d={d} fill="none" stroke={["#315e44","#b48453","#709276","#8c9c84"][i]} strokeWidth="1.8" />)}</svg>;
-  return <svg viewBox="0 0 240 150" role="img" aria-label="Diagram showing input, queue and processing engine"><text x="8" y="17" className="chart-label">SYSTEMS / DATA FLOW</text>{[15,94,173].map((x,i)=><g key={x}><rect x={x} y="57" width="57" height="46" rx="3" fill="#fffdf6" stroke="#86a183" /><text x={x+28.5} y="85" textAnchor="middle" className="chart-label">{["input","queue","engine"][i]}</text></g>)}<path d="M73 80H91M152 80H170" stroke="#527557" strokeWidth="2" /><text x="120" y="129" textAnchor="middle" className="chart-label">measure → profile → repeat</text></svg>;
+"use client";
+
+import { profileLinks } from "@/components/social-icons";
+
+const githubPath = profileLinks.find((link) => link.label === "GitHub")?.path ?? "";
+
+export function ProjectVisual({ kind }: { kind: "book" | "paths" | "systems" | "github" }) {
+  if (kind === "book") return <svg viewBox="0 0 240 150" role="img" aria-label="Illustration of bid and ask depth">
+    <text x="8" y="17" className="chart-label">BID / ASK DEPTH</text>
+    <line x1="120" y1="35" x2="120" y2="138" stroke="#c9d2c6" />
+    {[68, 90, 107, 61, 88].map((value, index) => <g key={index}>
+      <rect x={115 - value} y={38 + index * 20} width={value} height="12" rx="1" fill="#719674" />
+      <rect x="125" y={38 + index * 20} width={[79, 53, 102, 86, 58][index]} height="12" rx="1" fill="#bc8773" />
+    </g>)}
+  </svg>;
+
+  if (kind === "paths") return <svg viewBox="0 0 240 150" role="img" aria-label="Illustrative stochastic price paths">
+    <text x="8" y="17" className="chart-label">MONTE CARLO / SAMPLE PATHS</text>
+    <path d="M8 127H230M8 35V127" fill="none" stroke="#c9d2c6" />
+    {[
+      "M8 90L30 85L50 91L75 60L95 72L120 64L144 70L164 41L188 49L208 37L232 28",
+      "M8 90L30 95L50 80L75 93L95 85L120 105L144 98L164 102L188 92L208 98L232 103",
+      "M8 90L30 78L50 86L75 83L95 64L120 77L144 58L164 72L188 65L208 73L232 61",
+      "M8 90L30 100L50 98L75 109L95 95L120 111L144 109L164 121L188 110L208 117L232 113",
+    ].map((path, index) => <path key={path} d={path} fill="none" stroke={["#315e44", "#b48453", "#709276", "#8c9c84"][index]} strokeWidth="1.8" />)}
+  </svg>;
+
+  if (kind === "systems") return <svg viewBox="0 0 240 150" role="img" aria-label="Diagram showing input, queue and processing engine">
+    <text x="8" y="17" className="chart-label">SYSTEMS / DATA FLOW</text>
+    {[15, 94, 173].map((x, index) => <g key={x}>
+      <rect x={x} y="57" width="57" height="46" rx="3" fill="#fffdf6" stroke="#86a183" />
+      <text x={x + 28.5} y="85" textAnchor="middle" className="chart-label">{["input", "queue", "engine"][index]}</text>
+    </g>)}
+    <path d="M73 80H91M152 80H170" stroke="#527557" strokeWidth="2" />
+    <text x="120" y="129" textAnchor="middle" className="chart-label">measure → profile → repeat</text>
+  </svg>;
+
+  return <svg viewBox="0 0 240 150" role="img" aria-label="GitHub source repository">
+    <rect x="0" y="0" width="240" height="150" rx="9" fill="#f1efeb" />
+    <circle cx="120" cy="66" r="31" fill="#292d32" />
+    <path d={githubPath} transform="translate(104 50) scale(1.34)" fill="#fffdf9" />
+    <text x="120" y="123" textAnchor="middle" className="chart-label">SOURCE ON GITHUB</text>
+  </svg>;
 }

@@ -1,13 +1,62 @@
 import type { Metadata } from "next";
+import { GraduationCap } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
 
 export const metadata: Metadata = { title: "Education | Om Deshmukh" };
+
 export default function Education() {
-  return <main className="page"><PageHeading eyebrow="Electrical engineering → computer science → finance" title="Education"><p>I studied electrical engineering at AISSMS before moving into computer science at JSPM. I’m now trying to bring those two sides together through systems programming and quantitative finance.</p></PageHeading>
-    <div className="campus-strip"><figure><img src="/photos/aissms-campus.webp" alt="AISSMS College of Engineering campus in Pune" /><figcaption>AISSMS College of Engineering · <a href="https://aissmscoe.com/" target="_blank" rel="noreferrer">College photograph</a></figcaption></figure><figure><img src="/photos/jspm-campus.webp" alt="JSPM University building overlooking the campus fountain" /><figcaption>JSPM University · <a href="https://jspmuni.ac.in/jspm-university" target="_blank" rel="noreferrer">University photograph</a></figcaption></figure></div>
-    <article className="education-entry"><div><p className="date">2025 – 2027 expected</p><span className="status">Pursuing</span></div><div><h2>JSPM University, Pune</h2><p className="degree">M.Tech · Computer Science</p><p className="small muted">CGPA: 8.0 / 10</p><p>I’m pursuing my M.Tech in Computer Science here. Alongside my studies, I’m spending time on algorithms and systems: how data is stored, how programs use memory, and what changes when work runs in parallel.</p><ul><li><strong>Data structures & algorithms:</strong> reasoning about complexity, graphs, trees, dynamic programming, and efficient problem solving.</li><li><strong>Systems & databases:</strong> memory, concurrency, operating-system behavior, and how data moves through a service.</li><li><strong>My HPC learning focus:</strong> cache locality, parallel decomposition, synchronization costs, and measuring scaling rather than assuming more threads are faster.</li></ul><p className="small muted">My current study and project interests.</p></div></article>
-    <article className="education-entry"><div><p className="date">2019 – 2023</p><span className="status">Completed</span></div><div><h2>AISSMS College of Engineering, Pune</h2><p className="degree">B.E. · Electrical Engineering</p><p className="small muted">CGPA: 7.5 / 10</p><p>This is where I did my B.E. in Electrical Engineering. The degree came before my move into software, but there are parts of it I keep coming back to, especially the maths behind models and signals.</p><ul><li><strong>Mathematical modeling:</strong> differential equations and linear algebra provide a language for systems that change over time.</li><li><strong>Signals & control:</strong> thinking about noise, feedback, stability, and the difference between a useful model and an oversimplified one.</li><li><strong>Numerical reasoning:</strong> approximation, precision, and error matter when simulations become software.</li></ul><p>I’m revisiting these ideas as I work through simulation and quant projects.</p></div></article>
-    <article className="education-entry"><div><img className="wqu-logo" src="/photos/wqu-logo.svg" alt="WorldQuant University" /><span className="status">Incoming</span></div><div><h2>WorldQuant University</h2><p className="degree">MSc · Financial Engineering</p><p>I’ve been admitted to the upcoming cohort. I’m looking forward to connecting my programming background with probability, financial data, and quantitative models.</p><p className="small muted">Classes have not started yet.</p><a className="underlined" href="https://www.wqu.edu/" target="_blank" rel="noreferrer">About the university ↗</a></div></article>
-    <section className="section"><h2>Ideas in the margins</h2><p className="muted">A few study sketches connecting the subjects I’m interested in.</p><div className="note-grid"><div className="study-note"><h3>Signals → systems</h3><p>input → model → response</p><p>dx / dt = Ax + Bu</p><p>Start with the assumptions.<br />Then ask what changes.</p></div><div className="study-note"><h3>Think in complexity</h3><p>balanced tree → O(log n)</p><p>array scan → O(n)</p><p>But what does the cache see?</p></div><div className="study-note"><h3>Parallel ≠ free</h3><p>S(p) = 1 / [(1 − f) + f/p]</p><p>f = parallel fraction</p><p>The serial part still matters.</p></div></div><p className="source">Illustrative study notes created for this portfolio.</p></section>
+  return <main className="page education-page">
+    <PageHeading eyebrow="Electrical engineering → computer science → finance" title="Education" />
+
+    <section className="portfolio-timeline education-timeline" aria-label="Education timeline">
+      <article className="portfolio-timeline-item">
+        <div className="portfolio-timeline-card">
+          <span className="portfolio-timeline-date">Incoming cohort · Admitted</span>
+          <h3>MSc · Financial Engineering</h3>
+          <h4>WorldQuant University</h4>
+          <img className="education-wqu-logo" src="/photos/wqu-logo.svg" alt="WorldQuant University logo" />
+          <p>Admitted to the upcoming cohort; classes have not started yet.</p>
+          <a className="underlined" href="https://www.wqu.edu/" target="_blank" rel="noreferrer">About the university ↗</a>
+        </div>
+        <span className="portfolio-timeline-icon" aria-hidden="true"><GraduationCap size={17} /></span>
+      </article>
+
+      <article className="portfolio-timeline-item">
+        <div className="portfolio-timeline-card">
+          <time className="portfolio-timeline-date" dateTime="2025">2025 – 2027 expected</time>
+          <h3>M.Tech · Computer Science</h3>
+          <h4>JSPM University, Pune</h4>
+          <figure className="education-campus-figure">
+            <img src="/photos/jspm-campus.webp" alt="JSPM University building overlooking the campus fountain" />
+            <figcaption>JSPM University · <a href="https://jspmuni.ac.in/jspm-university" target="_blank" rel="noreferrer">Campus</a></figcaption>
+          </figure>
+          <p className="education-result">Pursuing · CGPA 8.0 / 10</p>
+        </div>
+        <span className="portfolio-timeline-icon" aria-hidden="true"><GraduationCap size={17} /></span>
+      </article>
+
+      <article className="portfolio-timeline-item">
+        <div className="portfolio-timeline-card">
+          <span className="portfolio-timeline-date">2019 – 2023</span>
+          <h3>B.E. · Electrical Engineering</h3>
+          <h4>AISSMS College of Engineering, Pune</h4>
+          <figure className="education-campus-figure">
+            <img src="/photos/aissms-campus.webp" alt="AISSMS College of Engineering campus in Pune" />
+            <figcaption>AISSMS College of Engineering · <a href="https://aissmscoe.com/" target="_blank" rel="noreferrer">Campus</a></figcaption>
+          </figure>
+          <p className="education-result">Completed · CGPA 7.5 / 10</p>
+        </div>
+        <span className="portfolio-timeline-icon" aria-hidden="true"><GraduationCap size={17} /></span>
+      </article>
+    </section>
+
+    <section className="section education-notes">
+      <h2>Study notes</h2>
+      <div className="note-grid">
+        <div className="study-note"><h3>Signals → systems</h3><p>dx / dt = Ax + Bu</p></div>
+        <div className="study-note"><h3>Complexity</h3><p>Tree · O(log n)</p><p>Scan · O(n)</p></div>
+        <div className="study-note"><h3>Parallel speedup</h3><p>S(p) = 1 / [(1 − f) + f/p]</p></div>
+      </div>
+    </section>
   </main>;
 }

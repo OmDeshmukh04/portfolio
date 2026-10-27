@@ -44,3 +44,9 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+
+# Local previews, working assets, and compiler cache.
+/output/
+/tmp/
+/photos-src/
+*.tsbuildinfo

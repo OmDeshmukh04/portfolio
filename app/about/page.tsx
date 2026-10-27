@@ -1,8 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Gamepad2, Puzzle } from "lucide-react";
 import { PageHeading, AboutNav } from "@/components/page-heading";
 
 export const metadata: Metadata = { title: "About | Om Deshmukh" };
+
 export default function About() {
-  return <main className="page"><PageHeading eyebrow="A little beyond the résumé" title="About me"><p>Hi! I’m Om. I live in Pune, work at CapSurge, and study computer science at JSPM. I started out in electrical engineering; now I’m spending more of my time on C++, algorithms, and learning about quant development.</p></PageHeading><AboutNav /><p>There’s quite a bit of code elsewhere on this site, so this page is for everything else. Mostly mountain photographs and cricket. I have plenty to say about both.</p><div className="about-grid"><article><Link href="/about/trekking"><img src="/photos/trek-03.webp" alt="A green mountain trail beneath dramatic monsoon clouds" /></Link><h2>On the trail</h2><p>Kalsubai, Ratangad, and Harishchandragad are part of my trekking collection. I like bringing a camera along, which explains why there are so many photos here. Choosing just a few was never going to happen.</p><Link className="underlined" href="/about/trekking">My trekking journal →</Link></article><article><Link href="/about/cricket"><img src="/photos/rohit-264.webp" alt="Rohit Sharma celebrating his record-breaking innings" /></Link><h2>A Rohit Sharma fanboy</h2><p>Yes, I’m a Rohit Sharma fanboy. The double hundreds and the 2024 World Cup trophy lift have their own page here. That probably tells you enough.</p><Link className="underlined" href="/about/cricket">Cricket & favourite moments →</Link><p className="source">Photo: <a href="https://www.bcci.tv/news/article/report-india-vs-sri-lanka-4th-odi" target="_blank" rel="noreferrer">BCCI</a></p></article></div></main>;
+  return <main className="page about-page">
+    <PageHeading eyebrow="A little beyond the résumé" title="Life outside work" />
+    <AboutNav active="about" />
+    <div className="about-grid about-topics-grid">
+      <article className="about-topic-card">
+        <Link href="/about/trekking"><img src="/photos/trek-03.webp" alt="A green mountain trail beneath dramatic monsoon clouds" /></Link>
+        <h2><Link href="/about/trekking">Trekking</Link></h2>
+        <p>Sahyadri trails, high ridges, and photos along the way.</p>
+      </article>
+      <article className="about-topic-card">
+        <Link href="/about/cricket"><img src="/photos/rohit-264.webp" alt="Rohit Sharma celebrating his record-breaking innings" /></Link>
+        <h2><Link href="/about/cricket">Rohit Sharma fanboy</Link></h2>
+        <p>264. The 2024 World Cup. Two moments I never tire of.</p>
+      </article>
+      <article className="about-topic-card">
+        <Link className="about-topic-visual about-topic-visual-esports" href="/about/esports" aria-label="Read about BGMI esports and Team Soul">
+          <Gamepad2 size={42} strokeWidth={1.5} aria-hidden="true" />
+          <span>BGMI · TEAM SOUL</span>
+        </Link>
+        <h2><Link href="/about/esports">BGMI esports</Link></h2>
+        <p>Team Soul fan—especially Soul Legit.</p>
+      </article>
+      <article className="about-topic-card">
+        <Link className="about-topic-visual about-topic-visual-puzzles" href="/about/puzzles" aria-label="Read about the puzzles Om enjoys">
+          <Puzzle size={42} strokeWidth={1.5} aria-hidden="true" />
+          <span>LOGIC · GEOMETRY</span>
+        </Link>
+        <h2><Link href="/about/puzzles">Puzzles</Link></h2>
+        <p>Simon Tatham’s Puzzles and Euclidea.</p>
+      </article>
+    </div>
+  </main>;
 }

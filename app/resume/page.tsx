@@ -14,10 +14,8 @@ const skills = [
 ];
 
 export default function Resume() {
-  return <main className="page">
-    <PageHeading eyebrow="Experience · education · projects" title="Résumé">
-      <p>Here’s the short version of my work, projects, and education. You can read it below, print this page, or download my one-page résumé.</p>
-    </PageHeading>
+  return <main className="page resume-page">
+    <PageHeading eyebrow="Experience · education · projects" title="Résumé" />
 
     <div className="resume-actions">
       <PrintButton />
@@ -40,7 +38,7 @@ export default function Resume() {
 
       <section className="resume-section">
         <h3>Summary</h3>
-        <p>Software engineer building the data and automation behind financial-modeling workflows, with an M.Tech in Computer Science underway and an incoming MSc in Financial Engineering. I work in C++ and Python on systems where the same input has to produce the same result, failures stay traceable, and performance claims are measured rather than assumed.</p>
+        <p>Software engineer at CapSurge building tenant-scoped APIs, data-ingestion pipelines, and receivables automation. I’m pursuing an M.Tech in Computer Science and preparing for an MSc in Financial Engineering at WorldQuant University, alongside projects in quant and systems software.</p>
       </section>
 
       <section className="resume-section">
@@ -48,19 +46,42 @@ export default function Resume() {
         <div className="resume-entry">
           <div className="resume-entry-head">
             <div><strong>CapSurge</strong> <span>— Software Engineer, Full-time</span></div>
-            <span className="date">March 2026 – Present · Pune</span>
+            <span className="date">Sep 2026 – Present · Pune</span>
           </div>
           <ul>
-            <li>Build an automation engine that ingests provider data, validates and normalizes financial inputs, and produces reproducible reconciliation outputs for analysts — <strong>2,200+ records processed monthly across 13 data providers</strong>.</li>
-            <li>Design tenant-isolated data services with composite PostgreSQL indexes and explicit data boundaries.</li>
-            <li>Make reconciliation idempotent through deduplication keys, validation checks, and structured exception handling, so retries never create duplicate work.</li>
-            <li>Define structured data contracts that cut integration turnaround for a new financial input by roughly <strong>40%</strong>.</li>
+            <li><strong>Healthcare platform:</strong> Build tenant-scoped FastAPI APIs and ETL for patient records, appointments, charges, and ERA payments, with validation and PostgreSQL storage.</li>
+            <li><strong>Receivables automation:</strong> Build ingestion, reconciliation, and review workflows for bank statements, invoices, and collection trackers; add rollback and recovery tests.</li>
           </ul>
+        </div>
+        <div className="resume-entry">
+          <div className="resume-entry-head">
+            <div><strong>CapSurge</strong> <span>— Software Development Intern</span></div>
+            <span className="date">Mar 2026 – Aug 2026 · Pune</span>
+          </div>
+          <ul>
+            <li>Built data-ingestion and reconciliation pipelines with normalization, deduplication keys, validation checks, and structured exception handling for analyst-facing workflows.</li>
+          </ul>
+        </div>
+        <div className="resume-entry">
+          <div className="resume-entry-head">
+            <div><strong>Tata Communications</strong> <span>— Project Engineer Intern</span></div>
+            <span className="date">Dec 2021 – Feb 2022</span>
+          </div>
         </div>
       </section>
 
       <section className="resume-section">
         <h3>Projects</h3>
+        <div className="resume-entry">
+          <div className="resume-entry-head">
+            <div><strong>Bank Statement Financial Reporting Engine</strong> <span>— Python, FastAPI, PostgreSQL, SQLAlchemy, Pandas, React, AWS</span></div>
+            <span className="date">CapSurge</span>
+          </div>
+          <ul>
+            <li>Built a bank-statement-to-report pipeline that normalizes and categorizes transactions to generate profit-and-loss (P&amp;L) and cash-flow reports.</li>
+            <li>Connected accounts receivable/payable, invoicing, CAPEX, and fixed-asset schedules with opening balances to support balance sheets and cash/accrual reporting.</li>
+          </ul>
+        </div>
         <div className="resume-entry">
           <div className="resume-entry-head">
             <div><strong>Limit Order Book & Matching Engine</strong> <span>— C++17, CMake</span></div>
@@ -118,9 +139,7 @@ export default function Resume() {
       <section className="resume-section">
         <h3>Competitive Programming</h3>
         <ul className="resume-inline-list">
-          <li><strong>Codeforces</strong> — <a href="https://codeforces.com/profile/Deshmukh19" target="_blank" rel="noreferrer">Deshmukh19</a>, Expert</li>
           <li><strong>LeetCode</strong> — <a href="https://leetcode.com/u/ExpertD19/" target="_blank" rel="noreferrer">ExpertD19</a>, Knight, 350 problems solved</li>
-          <li><strong>CodeChef</strong> — <a href="https://www.codechef.com/users/om_deshmukh_19" target="_blank" rel="noreferrer">om_deshmukh_19</a>, contest practice</li>
         </ul>
         <p className="small muted">Practice areas: graphs and shortest paths, dynamic programming, range-query structures, and binary search on the answer.</p>
       </section>
